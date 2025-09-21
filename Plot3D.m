@@ -1,4 +1,14 @@
-function Plot3D(nmax,t,saveDir)
+function Plot3D(varargin)
+
+Para=inputParser;
+addOptional(Para,'nmax',9);
+addOptional(Para,'t',10^(-7));
+addOptional(Para,'saveDir','');
+parse(Para,varargin{:});
+
+nmax=Para.Results.nmax;
+t=Para.Results.t;
+saveDir=Para.Results.saveDir;
 
 set(groot,'defaultLineLineWidth',2);
 set(groot,'defaultAxesLineWidth',1.1);
@@ -27,7 +37,7 @@ h1=imagesc(0:nmax, 0:nmax, log10(SESD));
 colormap(parula(256));
 colorbar;
 xlabel('$n$'); ylabel('$k$');
-title(sprintf('\\textbf{SESD with respect to $n$ and $k$, where $t=10^{%d}$}',log10(t)));
+title(sprintf('\\textbf{SESD with respect to $n,k$, where $t=10^{%d}$}',log10(t)));
 axis xy;
 set(h1,'AlphaData',~isnan(SESD));
 cb = colorbar;
@@ -42,7 +52,7 @@ h2=imagesc(0:nmax, 0:nmax, log10(NESR));
 colormap(parula(256));
 colorbar;
 xlabel('$n$'); ylabel('$k$');
-title(sprintf('\\textbf{NESR with respect to $n$ and $k$, where $t=10^{%d}$}',log10(t)));
+title(sprintf('\\textbf{NESR with respect to $n,k$, where $t=10^{%d}$}',log10(t)));
 axis xy;
 set(h2,'AlphaData',~isnan(SESD));
 cb = colorbar;
@@ -55,7 +65,7 @@ print(gcf, '-depsc', filepath);
 figure;
 scatter3(X, Y, QBER, 'b','filled');
 xlabel('$n$'); ylabel('$k$'); zlabel('QBER');
-title(sprintf('\\textbf{QBER with respect to $n$ and $k$, where $t=10^{%d}$}',log10(t)));
+title(sprintf('\\textbf{Fundamental QBER with respect to $n,k$, where $t=10^{%d}$}',log10(t)));
 grid on;
 view([1 1 0.5]);
 name=sprintf('QBER(t=10^%d).eps', log10(t));

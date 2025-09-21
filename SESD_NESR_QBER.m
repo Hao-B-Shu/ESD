@@ -4,7 +4,7 @@ Para=inputParser;
 addOptional(Para,'eta',0.78);
 addOptional(Para,'d',10^(-7));
 addOptional(Para,'ep',0.002);
-addOptional(Para,'ec',0.015);
+addOptional(Para,'ec',0);
 addOptional(Para,'u',5);
 addOptional(Para,'n',3);
 addOptional(Para,'k',1);

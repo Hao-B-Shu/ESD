@@ -1,4 +1,17 @@
-function Plot(tmin, tmax, nk, saveDir)
+function Plot(varargin)
+
+Para=inputParser;
+addOptional(Para,'nk',[0,0;3,1;5,2;7,3;9,4]);
+addOptional(Para,'tmin',10^(-13));
+addOptional(Para,'P',0.99);
+addOptional(Para,'saveDir','');
+
+parse(Para,varargin{:});
+
+tmin=Para.Results.tmin;
+nk=Para.Results.nk;
+P=Para.Results.P;
+saveDir=Para.Results.saveDir;
 
 set(groot,'defaultLineLineWidth',2);
 set(groot,'defaultAxesLineWidth',1.1);
@@ -11,7 +24,7 @@ set(groot, 'defaultAxesFontWeight', 'bold');
 
 set(groot, 'defaultTextInterpreter','latex');
 
-t = logspace(log10(tmin+10^(-13)), log10(tmax), 100);
+t = logspace(log10(tmin), 0, 100);
 
 %% --------- SESD ----------
 figure; hold on;
@@ -19,16 +32,16 @@ h1 = gobjects(size(nk,1),1);
 for i = 1:size(nk,1)
     n = nk(i,1);
     k = nk(i,2);
-    [SESD,~,~] = SESD_NESR_QBER('t',t,'n',n,'k',k);
+    [SESD,~,~] = SESD_NESR_QBER('t',t,'n',n,'k',k,'P',P);
     h1(i) = plot(t, SESD, 'DisplayName', sprintf('$n$=%d, $k$=%d', n, k));
 end
 hold off;
 set(gca,'XScale','log');
 set(gca,'YScale','log');
-axis([tmin tmax 0 10]);
+axis([tmin 1 0 10]);
 xlabel('$t$'); ylabel('SESD');
-title('\textbf{SESD with respect to $t$ under different $n$ and $k$}');
-legend(h1,'Location','best');
+title(sprintf('\\textbf{Fundamental SESD with respect to $t$, where $P=%g$}',P));
+legend(h1,'Location','best','Interpreter','latex');
 grid on;
 print(gcf, [fullfile(saveDir, 'SESD') '.eps'], '-depsc', '-vector');
 %saveas(gcf, fullfile(saveDir, 'SESD.png'));
@@ -39,15 +52,15 @@ h2 = gobjects(size(nk,1),1);
 for i = 1:size(nk,1)
     n = nk(i,1);
     k = nk(i,2);
-    [~,NESR,~] = SESD_NESR_QBER('t',t,'n',n,'k',k);
+    [~,NESR,~] = SESD_NESR_QBER('t',t,'n',n,'k',k,'P',P);
     h2(i) = plot(t, NESR, 'DisplayName', sprintf('$n$=%d, $k$=%d', n, k));
 end
 hold off;
 set(gca,'XScale','log');
-axis([tmin tmax 0 10])
+axis([tmin 1 0 10])
 xlabel('$t$'); ylabel('NESR');set(gca,'YScale','log');
-title('\textbf{NESR with respect to $t$ under different $n$ and $k$}');
-legend(h2,'Location','best');
+title(sprintf('\\textbf{Fundamental NESR with respect to $t$, where $P=%g$}',P));
+legend(h2,'Location','best','Interpreter','latex');
 grid on;
 print(gcf, [fullfile(saveDir, 'NESR') '.eps'], '-depsc', '-vector');
 %saveas(gcf, fullfile(saveDir, 'NESR.png'));
@@ -58,15 +71,15 @@ h3 = gobjects(size(nk,1),1);
 for i = 1:size(nk,1)
     n = nk(i,1);
     k = nk(i,2);
-    [~,~,QBER] = SESD_NESR_QBER('t',t,'n',n,'k',k);
+    [~,~,QBER] = SESD_NESR_QBER('t',t,'n',n,'k',k,'P',P);
     h3(i) = plot(t, QBER, 'DisplayName', sprintf('$n$=%d, $k$=%d', n, k));
 end
 hold off;
 set(gca,'XScale','log');
-axis([tmin tmax 0.01 0.11])
-xlabel('$t$'); ylabel('QBER');
-title('\textbf{QBER with respect to $t$ under different $n$ and $k$}');
-legend(h3,'Location','best');
+axis([tmin 1 -0.005 0.11])
+xlabel('$t$'); ylabel('Fundamental QBER');
+title(sprintf('\\textbf{Fundamental QBER with respect to $t$, where $P=%g$}',P));
+legend(h3,'Location','best','Interpreter','latex');
 grid on;
 print(gcf, [fullfile(saveDir, 'QBER') '.eps'], '-depsc', '-vector');
 %saveas(gcf, fullfile(saveDir, 'QBER.png'));
