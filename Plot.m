@@ -32,7 +32,7 @@ h1 = gobjects(size(nk,1),1);
 for i = 1:size(nk,1)
     n = nk(i,1);
     k = nk(i,2);
-    [SESD,~,~] = SESD_NESR_QBER('t',t,'n',n,'k',k,'P',P);
+    [SESD,~,~,~,~] = SESD_NESR_QBER('t',t,'n',n,'k',k,'P',P);
     h1(i) = plot(t, SESD, 'DisplayName', sprintf('$n$=%d, $k$=%d', n, k));
 end
 hold off;
@@ -40,10 +40,13 @@ set(gca,'XScale','log');
 set(gca,'YScale','log');
 axis([tmin 1 0 10]);
 xlabel('$t$'); ylabel('SESD');
-title(sprintf('\\textbf{Fundamental SESD with respect to $t$, where $P=%g$}',P));
+title(sprintf('\\textbf{SESD with respect to $t$, where $P=%g$}',P));
 legend(h1,'Location','best','Interpreter','latex');
 grid on;
-print(gcf, [fullfile(saveDir, 'SESD') '.eps'], '-depsc', '-vector');
+name=sprintf('SESRP%g.eps', P);
+filepath = fullfile(saveDir, name);
+print(gcf, '-depsc', filepath);
+
 %saveas(gcf, fullfile(saveDir, 'SESD.png'));
 
 %% --------- NESR ----------
@@ -52,17 +55,19 @@ h2 = gobjects(size(nk,1),1);
 for i = 1:size(nk,1)
     n = nk(i,1);
     k = nk(i,2);
-    [~,NESR,~] = SESD_NESR_QBER('t',t,'n',n,'k',k,'P',P);
+    [~,NESR,~,~,~] = SESD_NESR_QBER('t',t,'n',n,'k',k,'P',P);
     h2(i) = plot(t, NESR, 'DisplayName', sprintf('$n$=%d, $k$=%d', n, k));
 end
 hold off;
 set(gca,'XScale','log');
 axis([tmin 1 0 10])
 xlabel('$t$'); ylabel('NESR');set(gca,'YScale','log');
-title(sprintf('\\textbf{Fundamental NESR with respect to $t$, where $P=%g$}',P));
+title(sprintf('\\textbf{NESR with respect to $t$, where $P=%g$}',P));
 legend(h2,'Location','best','Interpreter','latex');
 grid on;
-print(gcf, [fullfile(saveDir, 'NESR') '.eps'], '-depsc', '-vector');
+name=sprintf('NESRP%g.eps', P);
+filepath = fullfile(saveDir, name);
+print(gcf, '-depsc', filepath);
 %saveas(gcf, fullfile(saveDir, 'NESR.png'));
 
 %% --------- QBER ----------
@@ -71,7 +76,7 @@ h3 = gobjects(size(nk,1),1);
 for i = 1:size(nk,1)
     n = nk(i,1);
     k = nk(i,2);
-    [~,~,QBER] = SESD_NESR_QBER('t',t,'n',n,'k',k,'P',P);
+    [~,~,QBER,~,~] = SESD_NESR_QBER('t',t,'n',n,'k',k,'P',P);
     h3(i) = plot(t, QBER, 'DisplayName', sprintf('$n$=%d, $k$=%d', n, k));
 end
 hold off;
@@ -81,7 +86,9 @@ xlabel('$t$'); ylabel('Fundamental QBER');
 title(sprintf('\\textbf{Fundamental QBER with respect to $t$, where $P=%g$}',P));
 legend(h3,'Location','best','Interpreter','latex');
 grid on;
-print(gcf, [fullfile(saveDir, 'QBER') '.eps'], '-depsc', '-vector');
+name=sprintf('QBERP%g.eps', P);
+filepath = fullfile(saveDir, name);
+print(gcf, '-depsc', filepath);
 %saveas(gcf, fullfile(saveDir, 'QBER.png'));
 
 end

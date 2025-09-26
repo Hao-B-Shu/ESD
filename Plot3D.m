@@ -28,7 +28,7 @@ QBER = NaN(size(X));
 
 for n = 0:nmax
     for k = 0:n
-        [SESD(k+1,n+1),NESR(k+1,n+1),QBER(k+1,n+1)] = SESD_NESR_QBER('t',t,'n',n,'k',k); 
+        [SESD(k+1,n+1),NESR(k+1,n+1),QBER(k+1,n+1),~,~] = SESD_NESR_QBER('t',t,'n',n,'k',k); 
     end
 end
 
