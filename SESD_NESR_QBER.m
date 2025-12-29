@@ -8,7 +8,7 @@ addOptional(Para,'ec',0);
 addOptional(Para,'n',3);
 addOptional(Para,'k',1);
 addOptional(Para,'P',0.99);
-addOptional(Para,'p1',0.99);
+addOptional(Para,'p1',0.97);
 addOptional(Para,'t',10^(-5));
 addOptional(Para,'dig',32);
 parse(Para,varargin{:});
@@ -84,3 +84,4 @@ el=d*(1-d);
 QBER=(NESR*et+(1-NESR)*el)./(NESR*(et+ct)+(1-NESR)*(el+cl));
 
 end
+
