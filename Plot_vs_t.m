@@ -4,7 +4,7 @@ Para=inputParser;
 addOptional(Para,'nk',[0,0;3,1;5,2;7,3;9,4]);
 addOptional(Para,'tmin',10^(-13));
 addOptional(Para,'P',0.99);
-addOptional(Para,'p1',0.99);
+addOptional(Para,'p1',0.97);
 addOptional(Para,'saveDir','');
 
 parse(Para,varargin{:});
@@ -92,5 +92,6 @@ name=sprintf('QBERP%g.eps', P);
 filepath = fullfile(saveDir, name);
 print(gcf, '-depsc', filepath);
 %saveas(gcf, fullfile(saveDir, 'QBER.png'));
+
 
 end
