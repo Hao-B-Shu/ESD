@@ -41,11 +41,11 @@ hold off;
 set(gca,'XScale','log');
 set(gca,'YScale','log');
 axis([tmin 1 0 10]);
-xlabel('$t$'); ylabel('SESD');
-title(sprintf('\\textbf{SESD with respect to $t$, where $P=%g$}',P));
+xlabel('$t$'); ylabel('SVSD');
+title(sprintf('\\textbf{SVSD with respect to $t$, where $P=%g$}',P));
 legend(h1,'Location','best','Interpreter','latex');
 grid on;
-name=sprintf('SESRP%g.eps', P);
+name=sprintf('SVSRP%g.eps', P);
 filepath = fullfile(saveDir, name);
 print(gcf, '-depsc', filepath);
 
@@ -63,11 +63,11 @@ end
 hold off;
 set(gca,'XScale','log');
 axis([tmin 1 0 10])
-xlabel('$t$'); ylabel('NESR');set(gca,'YScale','log');
-title(sprintf('\\textbf{NESR with respect to $t$, where $P=%g$}',P));
+xlabel('$t$'); ylabel('NVSR');set(gca,'YScale','log');
+title(sprintf('\\textbf{NVSR with respect to $t$, where $P=%g$}',P));
 legend(h2,'Location','best','Interpreter','latex');
 grid on;
-name=sprintf('NESRP%g.eps', P);
+name=sprintf('NVSRP%g.eps', P);
 filepath = fullfile(saveDir, name);
 print(gcf, '-depsc', filepath);
 %saveas(gcf, fullfile(saveDir, 'NESR.png'));
@@ -92,6 +92,5 @@ name=sprintf('QBERP%g.eps', P);
 filepath = fullfile(saveDir, name);
 print(gcf, '-depsc', filepath);
 %saveas(gcf, fullfile(saveDir, 'QBER.png'));
-
 
 end

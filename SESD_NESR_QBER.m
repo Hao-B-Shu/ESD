@@ -84,4 +84,3 @@ el=d*(1-d);
 QBER=(NESR*et+(1-NESR)*el)./(NESR*(et+ct)+(1-NESR)*(el+cl));
 
 end
-

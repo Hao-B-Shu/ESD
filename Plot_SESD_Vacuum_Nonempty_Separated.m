@@ -3,7 +3,7 @@ function Plot_SESD_Vacuum_Nonempty_Separated(varargin)
 Para=inputParser;
 addOptional(Para,'nmax',9);
 addOptional(Para,'P',0.99);
-addOptional(Para,'p1',0.99);
+addOptional(Para,'p1',0.97);
 addOptional(Para,'saveDir','');
 addOptional(Para,'k',NaN);
 
@@ -46,12 +46,12 @@ end
 
 figure; hold on;
 h = gobjects(2,1);
-h(1) = plot(n, a, 'DisplayName', 'Non-empty signal sifting rate');
-h(2) = plot(n, b, 'DisplayName', 'Empty signal sifting rate');
+h(1) = plot(n, a, 'DisplayName', 'Non-vacuum signal sifting rate');
+h(2) = plot(n, b, 'DisplayName', 'Vacuum signal sifting rate');
 hold off;
 axis([n(1) nmax 0 1])
 xlabel('$n$'); ylabel('Sifting rate');set(gca,'YScale','log');
-title([sprintf('\\textbf{ESD module sifting rate, where $P=%g$,\\ }',P) klabel]);
+title([sprintf('\\textbf{VSD module sifting rate, where $P=%g$,\\ }',P) klabel]);
 legend(h,'Location','best','Interpreter','latex');
 grid on;
 name=sprintf('Sifting%g.eps', P);
